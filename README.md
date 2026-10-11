@@ -29,4 +29,4 @@ Every chart links to its readable JSON specification and compact data. Original 
 
 ## Publication status
 
-AI assistance: ChatGPT was used for editorial writing and website creation. 
+AI assistance: Generative AI tools, including ChatGPT, were used to assist with data analysis, planning, Vega/Vega-Lite implementation, debugging, visual design feedback, and editing of written annotations.
