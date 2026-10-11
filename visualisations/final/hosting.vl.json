@@ -1,0 +1,251 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 490,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ],
+    "center": [
+      0,
+      -28
+    ],
+    "scale": {
+      "expr": "min(width*1.15,height*1.55)"
+    },
+    "translate": {
+      "expr": "[width/2,height/2]"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "Data/site/states.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.state",
+          "from": {
+            "data": {
+              "url": "Data/site/states.json"
+            },
+            "key": "state",
+            "fields": [
+              "matches",
+              "population",
+              "rate"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#faf8f2",
+        "strokeWidth": 1,
+        "clip": true
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum.matches === 0",
+            "value": "#d9dcd4"
+          },
+          "field": "rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              2.7
+            ],
+            "range": [
+              "#e4efdd",
+              "#17664d"
+            ]
+          },
+          "legend": {
+            "title": "Fixtures per 100,000 residents",
+            "format": ".1f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.state",
+            "title": "State / territory"
+          },
+          {
+            "field": "matches",
+            "title": "Fixtures"
+          },
+          {
+            "field": "population",
+            "format": ",",
+            "title": "2025 residents"
+          },
+          {
+            "field": "rate",
+            "format": ".2f",
+            "title": "Fixtures / 100,000"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "state": "Western Australia",
+            "lon": 121,
+            "lat": -25,
+            "label": "WA"
+          },
+          {
+            "state": "Northern Territory",
+            "lon": 133,
+            "lat": -20,
+            "label": "NT"
+          },
+          {
+            "state": "Queensland",
+            "lon": 144,
+            "lat": -23,
+            "label": "QLD"
+          },
+          {
+            "state": "South Australia",
+            "lon": 135,
+            "lat": -30,
+            "label": "SA"
+          },
+          {
+            "state": "New South Wales",
+            "lon": 146,
+            "lat": -32,
+            "label": "NSW"
+          },
+          {
+            "state": "Victoria",
+            "lon": 144,
+            "lat": -37,
+            "label": "VIC"
+          },
+          {
+            "state": "Tasmania",
+            "lon": 147,
+            "lat": -42,
+            "label": "TAS"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "color": "#173b32"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 149.13,
+            "lat": -35.28
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": false,
+        "stroke": "#173b32",
+        "size": 100
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 149.13,
+            "lat": -35.28,
+            "text": "ACT 2.68 →"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -8,
+        "dy": -4,
+        "color": "#173b32",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "text"
+        }
+      }
+    }
+  ]
+}

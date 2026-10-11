@@ -1,0 +1,200 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 490,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "params": [
+    {
+      "name": "extent",
+      "value": "Australia / NZ",
+      "bind": {
+        "input": "select",
+        "name": "Map extent: ",
+        "options": [
+          "Australia / NZ",
+          "Sydney / Central West",
+          "Pacific / Las Vegas"
+        ]
+      }
+    }
+  ],
+  "projection": {
+    "type": "equirectangular",
+    "rotate": [
+      -150,
+      0,
+      0
+    ],
+    "center": {
+      "expr": "extent === 'Pacific / Las Vegas' ? [20,0] : extent === 'Sydney / Central West' ? [.1,-33.4] : [-5,-29]"
+    },
+    "scale": {
+      "expr": "extent === 'Pacific / Las Vegas' ? min(width/3,height/1.9) : extent === 'Sydney / Central West' ? min(width*13,height*17) : min(width*.86,height*1.3)"
+    },
+    "translate": {
+      "expr": "[width/2,height/2]"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "Data/site/pacific.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4e7df",
+        "stroke": "#b5c2b6",
+        "strokeWidth": 0.6,
+        "clip": true
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/states.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "filter": "extent === 'Sydney / Central West'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4e7df",
+        "stroke": "#b5c2b6",
+        "strokeWidth": 0.6,
+        "clip": true
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/venues.json"
+      },
+      "transform": [
+        {
+          "filter": "extent === 'Pacific / Las Vegas' || datum.country !== 'United States of America'"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "fill": "#17664d",
+        "fillOpacity": 0.6,
+        "stroke": "white",
+        "strokeWidth": 1,
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "matches",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              30
+            ],
+            "range": [
+              0,
+              1400
+            ]
+          },
+          "legend": {
+            "title": "Fixtures hosted (circle area)",
+            "values": [
+              1,
+              10,
+              20,
+              30
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "venue"
+          },
+          {
+            "field": "matches"
+          },
+          {
+            "field": "country"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/venues.json"
+      },
+      "transform": [
+        {
+          "filter": "extent === 'Pacific / Las Vegas' || datum.country !== 'United States of America'"
+        },
+        {
+          "filter": "extent === 'Sydney / Central West' ? datum.matches >= 19 : extent === 'Pacific / Las Vegas' ? (datum.label === 'Suncorp' || datum.label === 'Mt Smart' || datum.country === 'United States of America') : datum.label === 'Suncorp' || datum.label === 'Mt Smart' || datum.label === 'AAMI Park' || datum.label === 'CommBank' || datum.country === 'United States of America'"
+        },
+        {
+          "calculate": "(datum.country === 'United States of America' ? 'Las Vegas' : datum.label) + ' · ' + datum.matches",
+          "as": "annotation"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "dy": -12,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#173b32",
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation"
+        }
+      }
+    }
+  ]
+}

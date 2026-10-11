@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 410,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "params": [
+    {
+      "name": "sample",
+      "value": "All matches",
+      "bind": {
+        "input": "select",
+        "name": "Show: ",
+        "options": [
+          "All matches",
+          "Decided by 1–12 points"
+        ]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "lo": -12,
+            "hi": 12
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#ebc8aa",
+        "opacity": 0.35
+      },
+      "encoding": {
+        "y": {
+          "field": "lo",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "hi"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#a1aaa4"
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#a1aaa4"
+      },
+      "encoding": {
+        "y": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/paired.json"
+      },
+      "transform": [
+        {
+          "filter": "sample === 'All matches' || datum.close"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 35,
+        "opacity": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "metres",
+          "type": "quantitative",
+          "title": "Run metres: home minus away",
+          "scale": {
+            "domain": [
+              -1300,
+              1300
+            ]
+          }
+        },
+        "y": {
+          "field": "margin",
+          "type": "quantitative",
+          "title": "Final points: home minus away",
+          "scale": {
+            "domain": [
+              -80,
+              80
+            ]
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.close",
+            "value": "#b65734"
+          },
+          "value": "#17664d"
+        },
+        "tooltip": [
+          {
+            "field": "season"
+          },
+          {
+            "field": "home"
+          },
+          {
+            "field": "away"
+          },
+          {
+            "field": "metres"
+          },
+          {
+            "field": "margin"
+          }
+        ]
+      }
+    }
+  ]
+}

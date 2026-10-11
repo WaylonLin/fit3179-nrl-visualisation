@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What the NRL ladder hides: the grounds, performance profiles and reversals behind the 2025 season. A data story by Waylon Lin.">
+  <meta name="author" content="Waylon Lin">
+  <title>What the ladder hides — Waylon Lin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="css/style.css?v=20261011b">
+  <script defer src="https://cdn.jsdelivr.net/npm/vega@5.30.0/build/vega.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1/build/vega-lite.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0/build/vega-embed.min.js"></script>
+  <script defer src="js/embed.js?v=20261011b"></script>
+</head>
+<body>
+<a class="skip" href="#story">Skip to the story</a>
+<header class="masthead pure-g"><div class="pure-u-1">
+  <p class="eyebrow">NRL / 2025 season / A data story</p>
+  <h1>What the<br>ladder hides<span>.</span></h1>
+  <p class="subtitle">Ground, game and outcome</p>
+  <p class="standfirst">Seventeen clubs. One ladder. Very different stories.<br>The final standings tell us who finished ahead. They leave out where teams played, how they performed, and how quickly their fortunes could turn.</p>
+  <p class="byline">By <strong>Waylon Lin</strong> · 11 October 2026 · FIT3179</p>
+  <nav class="pure-menu pure-menu-horizontal" aria-label="Story chapters"><ul class="pure-menu-list"><li class="pure-menu-item"><a class="pure-menu-link" href="#ground">01 / Ground</a></li><li class="pure-menu-item"><a class="pure-menu-link" href="#game">02 / Game</a></li><li class="pure-menu-item"><a class="pure-menu-link" href="#outcome">03 / Outcome</a></li><li class="pure-menu-item"><a class="pure-menu-link" href="#sources">Sources</a></li></ul></nav>
+</div></header>
+<main id="story">
+<noscript><p class="takeaway">Enable JavaScript to load the interactive charts. The findings, sources and downloadable data remain available below.</p></noscript>
+<section id="profiles" aria-labelledby="profiles-title">
+  <p class="eyebrow">01 / Beyond the ranking</p><h2 id="profiles-title">There is more than one way to succeed.</h2>
+  <p class="setup">The top four did not share one performance profile. Compare five measures across the 2025 regular season: darker cells and smaller numbers indicate a stronger rank within that column.</p>
+  <figure><div id="chart-profiles" class="chart" data-spec="profiles.vl.json" aria-label="Team ranks across five performance measures">Loading visual…</div><figcaption>24 games per team. ↑ most ranks first; ↓ fewest ranks first. Ties share ranks. Hover or tap for the original per-match values. On narrow screens, m = metres and Opp. = opponent. Post-contact metres are metres gained after contact; a line break is a run through the defensive line.</figcaption></figure>
+  <p class="takeaway"><strong>Brisbane led for line breaks (6.13 per game), Canberra for post-contact metres (551.38), and Canterbury conceded the fewest line breaks (3.54) and run metres (1,335.58).</strong> These are distinct strengths, not ingredients in a made-up success score.</p>
+  <p class="source">Source: <a href="#source-metrics">Champion Data</a> and <a href="#source-results">NRL results</a>. <a href="visualisations/final/profiles.vl.json">Chart specification</a> · <a href="Data/site/profiles.json">Data</a></p>
+</section>
+<div class="chapter" id="ground"><p class="eyebrow">01 / Ground</p><h2>A national league.<br>An uneven footprint.</h2><p>Before comparing performances, consider the places that stage them. Geography is context here; it does not establish why a team wins.</p></div>
+<section id="hosting" aria-labelledby="hosting-title">
+  <p class="eyebrow">02 / Where games happen</p><h2 id="hosting-title">Hosting is concentrated in the east.</h2>
+  <p class="setup">New South Wales and Queensland staged 169 of Australia's 199 NRL fixtures in 2025 (84.9%). Adjusting for population gives a different perspective: the ACT leads in fixtures hosted per resident.</p>
+  <figure><div id="chart-hosting" class="chart map" data-spec="hosting.vl.json" aria-label="Australian hosting intensity by state and territory">Loading visual…</div><figcaption>Fixtures per 100,000 residents. Includes finals. Grey = no fixtures (SA, Tasmania and Other Territories). Other Territories' small offshore areas may not be visible at this extent. ABS preliminary population, 30 June 2025.</figcaption></figure>
+  <p class="takeaway"><strong>The ACT hosted 13 fixtures for 484,630 residents: 2.68 per 100,000.</strong> Its small administrative population makes this rate sensitive to the boundary. The map measures hosting intensity only; it says nothing about fan demand, catchments or accessibility.</p>
+  <p class="source">Sources: <a href="#source-results">NRL results</a>, <a href="#source-abs">ABS population and boundaries</a>. <a href="visualisations/final/hosting.vl.json">Specification</a> · <a href="Data/site/states.json">Data</a></p>
+</section>
+<section id="venues" aria-labelledby="venues-title">
+  <p class="eyebrow">03 / From regions to grounds</p><h2 id="venues-title">A few venues carry much of the fixture list.</h2>
+  <p class="setup">The competition used 26 venues across Australia, New Zealand and the United States. Circle area represents fixture count, including finals and every game in multi-match events.</p>
+  <figure><div id="chart-venues" class="chart map" data-spec="venues.vl.json" aria-label="Number of fixtures at each 2025 venue">Loading visual…</div><figcaption>All 213 fixtures are retained: Australia 199, New Zealand 12, Las Vegas 2. Switch to Pacific / Las Vegas to see the US venue, or Sydney / Central West to separate nearby grounds. Circle sizes stay comparable across extents.</figcaption></figure>
+  <p class="takeaway"><strong>Suncorp hosted 30 fixtures, CommBank 23 and Accor 19.</strong> Together they staged 72 of 213 games (33.8%). These are games hosted, not attendance or unique event-days.</p>
+  <p class="source">Sources: <a href="#source-results">NRL results</a>, <a href="#source-maps">venue coordinates and Natural Earth</a>. <a href="visualisations/final/venues.vl.json">Specification</a> · <a href="Data/site/venues.json">Data</a></p>
+</section>
+<section id="network" aria-labelledby="network-title">
+  <p class="eyebrow">04 / The meaning of home</p><h2 id="network-title">Twelve home games. Five different grounds.</h2>
+  <p class="setup">Penrith's established home was under redevelopment in 2025. Eight designated home games went to CommBank; Bathurst, Mudgee, Suncorp and Las Vegas hosted one each.</p>
+  <figure><div id="chart-network" class="chart map" data-spec="network.vl.json" aria-label="Selected club home-ground anchor to fixture venue connections">Loading visual…</div><figcaption>Diamond = established home-ground site. Lines connect that anchor to actual fixture venues; width counts repeated fixtures. These are schematic connections, not literal journeys. Home-ground games remain in point tooltips; zero-length lines are suppressed. Select Pacific / Las Vegas for offshore US fixtures.</figcaption></figure>
+  <p class="takeaway"><strong>“Home” is a fixture designation, not a guarantee of one stadium.</strong> Compare Penrith with Brisbane (all 12 home games at Suncorp) and the Warriors (10 at Mt Smart, plus Christchurch and Magic Round). Every club played 24 regular-season games.</p>
+  <p class="source">Sources: <a href="#source-results">NRL fixtures</a>, club home-ground announcements (<a href="https://www.penrithpanthers.com.au/news/2024/07/19/panthers-to-play-at-commbank-stadium-in-2025/">Penrith</a>, <a href="https://www.broncos.com.au/news/20242/11/21/brisbane-broncos-welcome-2025-draw/">Brisbane</a>, <a href="https://www.warriors.kiwi/news/2025/01/16/tickets-on-sale-for-home-games/">Warriors</a>). <a href="visualisations/final/network.vl.json">Specification</a> · <a href="Data/site/connections.json">Data</a></p>
+</section>
+<div class="chapter" id="game"><p class="eyebrow">02 / Game</p><h2>What happens<br>between the lines?</h2><p>The ladder compresses attack, defence and consistency into a single position. Match-level data reveals where those stories diverge.</p></div>
+<section id="territory" aria-labelledby="territory-title">
+  <p class="eyebrow">05 / Territory and the scoreboard</p><h2 id="territory-title">More metres usually accompany a win.<br>Close games are less clear-cut.</h2>
+  <p class="setup">Across 2023–2025, winners outgained their opponents in <strong>75.9%</strong> of decisive games (462/609). In games decided by 1–12 points, that fell to <strong>59.2%</strong> (189/319).</p>
+  <figure><div id="chart-territory" class="chart" data-spec="territory.vl.json" aria-label="Run metres difference against final score margin">Loading visual…</div><figcaption>612 regular-season matches, including three draws. Each dot is one match; positive values favour the designated home side. Orange dots mark margins of 1–12 points; the pale band spans ±12. Run metres measure ground gained carrying the ball.</figcaption></figure>
+  <p class="takeaway"><strong>In 130 of 319 close games, the winner did not gain more run metres.</strong> Territory and scores are associated over the same match; this is neither a forecast nor evidence that extra metres caused the result.</p>
+  <p class="source">Sources: <a href="#source-metrics">Champion Data</a>, <a href="#source-results">NRL results</a>. <a href="visualisations/final/territory.vl.json">Specification</a> · <a href="Data/site/paired.json">Data</a></p>
+</section>
+<section id="waterfall" aria-labelledby="waterfall-title">
+  <p class="eyebrow">06 / Canterbury, 2023 → 2025</p><h2 id="waterfall-title">The turnaround was mostly at the defensive end.</h2>
+  <p class="setup">Canterbury rose from 15th to third. Its season point difference—points scored minus points conceded—improved by 451 between 2023 and 2025.</p>
+  <figure><div id="chart-waterfall" class="chart" data-spec="waterfall.vl.json" aria-label="Additive change in Canterbury point difference">Loading visual…</div><figcaption>24 regular-season games in each year. Starting balance −331 + 96 extra points scored + 355 fewer conceded = ending balance +120. This compares season totals two years apart.</figcaption></figure>
+  <p class="takeaway"><strong>Fewer points conceded account for 78.7% of that improvement.</strong> Scoring rose from 438 to 534; conceded points fell from 769 to 414. This is an exact accounting decomposition, not an estimate of causal effects.</p>
+  <p class="source">Source: <a href="#source-results">NRL results</a>. <a href="visualisations/final/waterfall.vl.json">Specification</a> · <a href="Data/site/waterfall.json">Data</a></p>
+</section>
+<section id="defence" aria-labelledby="defence-title">
+  <p class="eyebrow">07 / What changed?</p><h2 id="defence-title">Less dangerous progress. Not simply fewer missed tackles.</h2>
+  <p class="setup">Canterbury went from conceding 6.67 line breaks a match in 2023 to 3.54 in 2025, the fewest in the league. Opponents' run metres also fell, from 1,607 to 1,336 per match.</p>
+  <figure><div id="chart-defence" class="chart" data-spec="defence.vl.json" aria-label="Canterbury defensive metrics compared with league averages">Loading visual…</div><figcaption>Each panel has its own unit and scale. Solid green = Canterbury (24 games/year); dashed grey = league average (408 team appearances/year). Lower values mean fewer opposition line breaks, metres or recorded missed tackles.</figcaption></figure>
+  <p class="takeaway"><strong>In 2024, Canterbury conceded the fewest line breaks while recording the most missed tackles.</strong> Missed tackles alone do not describe defensive effectiveness: whether opponents turn opportunities into dangerous progress matters too. These summaries cannot isolate tactics, personnel or causality.</p>
+  <p class="source">Source: <a href="#source-metrics">Champion Data</a>. <a href="visualisations/final/defence.vl.json">Specification</a> · <a href="Data/site/defence.json">Data</a></p>
+</section>
+<section id="scoring" aria-labelledby="scoring-title">
+  <p class="eyebrow">08 / Dolphins, 2025</p><h2 id="scoring-title">The most points. Still outside the top eight.</h2>
+  <p class="setup">The Dolphins scored a league-leading 721 points but finished ninth, winning 12 and losing 12. Their match scores also had the greatest spread: a standard deviation of 15.56 points.</p>
+  <figure><div id="chart-scoring" class="chart" data-spec="scoring.vl.json" aria-label="All teams' match-level scoring distributions with Dolphins highlighted">Loading visual…</div><figcaption>Teams ordered by average scoring. Each dot is one of 24 regular-season scores; small vertical offsets separate observations. Boxes contain the middle half, the central tick is the median, and whiskers show the full minimum–maximum range.</figcaption></figure>
+  <p class="takeaway"><strong>The Dolphins averaged 41.4 points in their wins, the highest winning-game average in the league.</strong> Big scoring days inflated their season total; points could not be carried into the next game. They also conceded 596 points. Scoring dispersion provides context, not a complete explanation for ninth place.</p>
+  <p class="source">Source: <a href="#source-results">NRL results</a>. <a href="visualisations/final/scoring.vl.json">Specification</a> · <a href="Data/site/scoring.json">Data</a></p>
+</section>
+<div class="chapter" id="outcome"><p class="eyebrow">03 / Outcome</p><h2>An advantage<br>is not a destination.</h2><p>A lead can vanish in forty minutes. A season can turn over several rounds. And first place before the finals is only one kind of achievement.</p></div>
+<section id="transitions" aria-labelledby="transitions-title">
+  <p class="eyebrow">09 / Half-time → full-time</p><h2 id="transitions-title">Most leads held. One in five reversed.</h2>
+  <p class="setup">Of the 186 games with a half-time leader in 2025, 147 ended with that team winning (79.0%). In 38 (20.4%), the trailing side came back to win. One ended in a draw.</p>
+  <figure><p class="chart-labels"><span>Half-time state</span><span>Final result</span></p><div id="chart-transitions" class="chart" data-spec="transitions.vg.json" aria-label="Count-conserving half-time to final-result transitions">Loading visual…</div><figcaption>All 204 regular-season matches. Band thickness counts matches, with equal units at both ends. Eighteen games were level at half-time. “Home” and “away” are fixture designations. Bands describe observed transitions, not predictions.</figcaption></figure>
+  <p class="takeaway"><strong>89 of 109 home leads and 58 of 77 away leads became wins.</strong> The small draw band remains one match wide; it has not been enlarged for emphasis.</p>
+  <p class="source">Source: <a href="#source-results">NRL half-time and full-time scores</a>. <a href="visualisations/final/transitions.vg.json">Specification</a> · <a href="Data/site/transitions.json">Data</a></p>
+</section>
+<section id="ladder" aria-labelledby="ladder-title">
+  <p class="eyebrow">10 / Penrith's recovery</p><h2 id="ladder-title">Last in round 12. Fourth in round 23. Seventh at the end.</h2>
+  <p class="setup">A final ladder hides the journey. Penrith won four of its first 12 games, then nine of its last 12—enough to turn a season near the bottom into a finals appearance.</p>
+  <figure><div id="chart-ladder" class="chart" data-spec="ladder.vl.json" aria-label="Penrith ladder trajectory with all 17 clubs for context">Loading visual…</div><figcaption>Green = Penrith; faint lines = other clubs. Hollow circles mark Penrith's byes, when it did not play. Ranks are end-of-round standings and can move during byes; clubs may have played unequal numbers of games.</figcaption></figure>
+  <p class="takeaway"><strong>Penrith's recovery was substantial, but not a straight climb.</strong> Its final seventh place also understated how close it would come in the finals: a two-point preliminary-final loss to Brisbane.</p>
+  <p class="source">Source: <a href="#source-results">NRL round-by-round ladder</a>. <a href="visualisations/final/ladder.vl.json">Specification</a> · <a href="Data/site/ladder.json">Data</a></p>
+</section>
+<section id="finals" aria-labelledby="finals-title">
+  <p class="eyebrow">11 / Two different achievements</p><h2 id="finals-title">Canberra finished first.<br>Brisbane lifted the trophy.</h2>
+  <p class="setup">The <strong>minor premiership</strong> goes to the club that tops the regular-season ladder. The <strong>premiership</strong> goes to the grand-final winner. In 2025, Canberra won the first distinction; fourth-placed Brisbane won the second.</p>
+  <figure><div id="chart-finals" class="chart" data-spec="finals.vl.json" aria-label="Actual 2025 finals progression for all eight qualifying teams">Loading visual…</div><figcaption>Rows follow teams, ordered by regular-season seed. Each of the nine games appears in both teams' rows; scores are from that row's perspective. Amber / dashed links = second chance after a qualifying-final loss. “Week off” is a rest, not a match. Out = eliminated. Week 1: qualifying and elimination finals; week 2: semi-finals; week 3: preliminary finals.</figcaption></figure>
+  <p class="key">Opponents: CAN Canberra · MEL Melbourne · CBY Canterbury · BRI Brisbane · CRO Cronulla · NZ Warriors · PEN Penrith · SYD Roosters.</p>
+  <p class="takeaway"><strong>Brisbane won its three finals by just 1, 2 and 4 points.</strong> Canberra's top seed earned a second chance, but two defeats ended its season. Consistency across the regular season and winning the finals are different achievements.</p>
+  <p class="source">Source: <a href="#source-results">NRL finals results</a>. <a href="visualisations/final/finals.vl.json">Specification</a> · <a href="Data/site/finals_nodes.json">Data</a></p>
+</section>
+<div class="closing"><p class="eyebrow">Beyond the ladder</p><h2>Read the position.<br>Then look at the story.</h2><p>The NRL ladder is a useful summary. But a fuller account needs the grounds, the balance of attack and defence, the spread of performances, and the moments when an advantage changed hands.</p></div>
+</main>
+<footer id="sources">
+<h2>Sources &amp; methods</h2>
+<p>Analysis centres on the 2025 men's NRL season, with 2023–2025 regular-season comparisons where stated. The pinned results source has a complete 2025 season and incomplete 2026 coverage; 2025 is the latest complete season in that snapshot.</p>
+<ul>
+<li id="source-results"><strong>Results and ladders:</strong> <a href="https://github.com/uselessnrlstats/uselessnrlstats/tree/7077ff459e26718a41d4c97885e63a067241c151/cleaned_data/nrl">Useless NRL Stats, pinned 20 June 2026 snapshot</a>, based on <a href="https://www.rugbyleagueproject.org/">Rugby League Project</a>. Accessed 6 October 2026.</li>
+<li id="source-metrics"><strong>Team metrics:</strong> <a href="https://www.championdata.com/">Champion Data</a> public match feed, using the endpoint documented by <a href="https://github.com/DanielTomaro13/nrlR/blob/93d3b6428c88a0a38809704dd68b87c9a3b375b1/R/fetch_player_stats.R">nrlR</a>. Accessed 11 October 2026. All 612 regular-season matches join on teams, date and score. The nrlR code licence does not establish a licence for the underlying provider data; public-reuse status remains unconfirmed.</li>
+<li id="source-abs"><strong>Population and boundaries:</strong> based on <a href="https://www.abs.gov.au/statistics/people/population/regional-population/2024-25">ABS Regional Population 2024–25</a>, Table 1, preliminary 30 June 2025 ERP; <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files">ABS ASGS 2025 LGA boundaries</a>. Matching LGAs aggregated to states/territories. Geometry simplified for display; source assignments retained.</li>
+<li id="source-maps"><strong>Map context:</strong> <a href="https://www.naturalearthdata.com/">Natural Earth</a> country boundaries; Wikipedia contributors for venue coordinates, with per-venue revision links in the <a href="Data/site/venues.json">venue data</a>. Club anchor definitions and sources are in the <a href="Data/site/anchors.json">anchor data</a>.</li>
+</ul>
+<p>Built with <a href="https://purecss.io/">Pure.css</a>, <a href="https://vega.github.io/vega/">Vega</a> and <a href="https://vega.github.io/vega-lite/">Vega-Lite</a>. AI assistance: ChatGPT used for editorial drafting and website creation</p>
+<p><strong>Waylon Lin</strong> · FIT3179 Data Visualisation 2 · 11 October 2026<br><a href="https://github.com/WaylonLin/fit3179-nrl-visualisation">Project repository</a> · <a href="docs/data_notes.md">Detailed data notes</a> · <a href="#story">Back to story ↑</a></p>
+</footer>
+</body></html>

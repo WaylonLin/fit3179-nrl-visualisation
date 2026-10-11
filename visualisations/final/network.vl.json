@@ -1,0 +1,350 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 490,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "params": [
+    {
+      "name": "club",
+      "value": "Penrith Panthers",
+      "bind": {
+        "input": "select",
+        "name": "Club: ",
+        "options": [
+          "Penrith Panthers",
+          "Brisbane Broncos",
+          "New Zealand Warriors"
+        ]
+      }
+    },
+    {
+      "name": "scope",
+      "value": "Home fixtures",
+      "bind": {
+        "input": "select",
+        "name": "Fixtures: ",
+        "options": [
+          "Home fixtures",
+          "All fixtures"
+        ]
+      }
+    },
+    {
+      "name": "extent",
+      "value": "Australia / NZ",
+      "bind": {
+        "input": "select",
+        "name": "Map extent: ",
+        "options": [
+          "Australia / NZ",
+          "Sydney / Central West",
+          "Pacific / Las Vegas"
+        ]
+      }
+    }
+  ],
+  "projection": {
+    "type": "equirectangular",
+    "rotate": [
+      -150,
+      0,
+      0
+    ],
+    "center": {
+      "expr": "extent === 'Pacific / Las Vegas' ? [20,0] : extent === 'Sydney / Central West' ? [.1,-33.4] : [-5,-29]"
+    },
+    "scale": {
+      "expr": "extent === 'Pacific / Las Vegas' ? min(width/3,height/1.9) : extent === 'Sydney / Central West' ? min(width*13,height*17) : min(width*.86,height*1.3)"
+    },
+    "translate": {
+      "expr": "[width/2,height/2]"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "Data/site/pacific.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4e7df",
+        "stroke": "#b5c2b6",
+        "strokeWidth": 0.6,
+        "clip": true
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/states.geojson",
+        "format": {
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "filter": "extent === 'Sydney / Central West'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e4e7df",
+        "stroke": "#b5c2b6",
+        "strokeWidth": 0.6,
+        "clip": true
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/connections.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.team === club"
+        },
+        {
+          "filter": "extent === 'Pacific / Las Vegas' || datum.country !== 'United States of America'"
+        },
+        {
+          "calculate": "scope === 'Home fixtures' ? datum.home : datum.all",
+          "as": "count"
+        },
+        {
+          "filter": "datum.count > 0"
+        },
+        {
+          "filter": "!datum.same"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#17664d",
+        "opacity": 0.6,
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "origin_lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "origin_lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "lon"
+        },
+        "latitude2": {
+          "field": "lat"
+        },
+        "strokeWidth": {
+          "field": "count",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              1,
+              14
+            ],
+            "range": [
+              1,
+              10
+            ]
+          },
+          "legend": {
+            "title": "Fixtures on connection",
+            "values": [
+              1,
+              4,
+              8,
+              12
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "venue"
+          },
+          {
+            "field": "count"
+          },
+          {
+            "field": "home"
+          },
+          {
+            "field": "away"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/connections.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.team === club"
+        },
+        {
+          "filter": "extent === 'Pacific / Las Vegas' || datum.country !== 'United States of America'"
+        },
+        {
+          "calculate": "scope === 'Home fixtures' ? datum.home : datum.all",
+          "as": "count"
+        },
+        {
+          "filter": "datum.count > 0"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 70,
+        "color": "#17664d",
+        "stroke": "white",
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "venue"
+          },
+          {
+            "field": "home"
+          },
+          {
+            "field": "away"
+          },
+          {
+            "field": "same"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/anchors.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.team === club"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "shape": "diamond",
+        "filled": true,
+        "size": 180,
+        "color": "#b65734",
+        "stroke": "white",
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "anchor"
+          },
+          {
+            "field": "definition"
+          },
+          {
+            "field": "at_home_anchor"
+          },
+          {
+            "field": "home_venues"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/connections.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.team === club"
+        },
+        {
+          "filter": "extent === 'Pacific / Las Vegas' || datum.country !== 'United States of America'"
+        },
+        {
+          "calculate": "scope === 'Home fixtures' ? datum.home : datum.all",
+          "as": "count"
+        },
+        {
+          "filter": "datum.count > 0"
+        },
+        {
+          "filter": "extent === 'Sydney / Central West' || datum.country === 'United States of America'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "dy": -11,
+        "fontSize": 11,
+        "color": "#173b32",
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "venue"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,608 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 650,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "Data/site/finals_edges.json"
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#a1aaa4",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "from",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          }
+        },
+        "x2": {
+          "field": "to"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "strokeDash": {
+          "condition": {
+            "test": "datum.second_chance",
+            "value": [
+              4,
+              3
+            ]
+          },
+          "value": [
+            1,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/finals_nodes.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.week-.44",
+          "as": "left"
+        },
+        {
+          "calculate": "datum.week+.44",
+          "as": "right"
+        },
+        {
+          "calculate": "datum.status === 'Second chance' ? '2nd chance' : datum.status === 'Eliminated' ? 'Out' : datum.status === 'Rest' ? '' : datum.status",
+          "as": "status_label"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "height": 66,
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "left",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "labelExpr": "['','Week 1','Week 2','Week 3','Final'][datum.value]",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "date"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "score"
+          },
+          {
+            "field": "status"
+          }
+        ],
+        "x2": {
+          "field": "right"
+        },
+        "color": {
+          "field": "status",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Advance",
+              "Second chance",
+              "Eliminated",
+              "Rest",
+              "Runner-up",
+              "Premiers"
+            ],
+            "range": [
+              "#17664d",
+              "#a56320",
+              "#dfe3dd",
+              "#eeeeea",
+              "#c9d3cc",
+              "#be8828"
+            ]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/finals_nodes.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.week-.44",
+          "as": "left"
+        },
+        {
+          "calculate": "datum.week+.44",
+          "as": "right"
+        },
+        {
+          "calculate": "datum.status === 'Second chance' ? '2nd chance' : datum.status === 'Eliminated' ? 'Out' : datum.status === 'Rest' ? '' : datum.status",
+          "as": "status_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -22,
+        "fontSize": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "labelExpr": "['','Week 1','Week 2','Week 3','Final'][datum.value]",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "date"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "score"
+          },
+          {
+            "field": "status"
+          }
+        ],
+        "text": {
+          "field": "short_date"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.status === 'Advance' || datum.status === 'Second chance'",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/finals_nodes.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.week-.44",
+          "as": "left"
+        },
+        {
+          "calculate": "datum.week+.44",
+          "as": "right"
+        },
+        {
+          "calculate": "datum.status === 'Second chance' ? '2nd chance' : datum.status === 'Eliminated' ? 'Out' : datum.status === 'Rest' ? '' : datum.status",
+          "as": "status_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -8,
+        "fontSize": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "labelExpr": "['','Week 1','Week 2','Week 3','Final'][datum.value]",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "date"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "score"
+          },
+          {
+            "field": "status"
+          }
+        ],
+        "text": {
+          "field": "opp_short"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.status === 'Advance' || datum.status === 'Second chance'",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/finals_nodes.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.week-.44",
+          "as": "left"
+        },
+        {
+          "calculate": "datum.week+.44",
+          "as": "right"
+        },
+        {
+          "calculate": "datum.status === 'Second chance' ? '2nd chance' : datum.status === 'Eliminated' ? 'Out' : datum.status === 'Rest' ? '' : datum.status",
+          "as": "status_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": 8,
+        "fontSize": 14,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "labelExpr": "['','Week 1','Week 2','Week 3','Final'][datum.value]",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "date"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "score"
+          },
+          {
+            "field": "status"
+          }
+        ],
+        "text": {
+          "field": "score"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.status === 'Advance' || datum.status === 'Second chance'",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/finals_nodes.json"
+      },
+      "transform": [
+        {
+          "calculate": "datum.week-.44",
+          "as": "left"
+        },
+        {
+          "calculate": "datum.week+.44",
+          "as": "right"
+        },
+        {
+          "calculate": "datum.status === 'Second chance' ? '2nd chance' : datum.status === 'Eliminated' ? 'Out' : datum.status === 'Rest' ? '' : datum.status",
+          "as": "status_label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": 24,
+        "fontSize": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "week",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.5,
+              4.5
+            ],
+            "nice": false,
+            "zero": false
+          },
+          "axis": {
+            "orient": "top",
+            "title": null,
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "labelExpr": "['','Week 1','Week 2','Week 3','Final'][datum.value]",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "1  Raiders",
+            "2  Storm",
+            "3  Bulldogs",
+            "4  Broncos",
+            "5  Sharks",
+            "6  Warriors",
+            "7  Panthers",
+            "8  Roosters"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 105,
+            "ticks": false,
+            "domain": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "date"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "score"
+          },
+          {
+            "field": "status"
+          }
+        ],
+        "text": {
+          "field": "status_label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.status === 'Advance' || datum.status === 'Second chance'",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    }
+  ]
+}

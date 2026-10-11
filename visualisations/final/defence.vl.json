@@ -1,0 +1,349 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 410,
+  "autosize": {
+    "type": "pad"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "vconcat": [
+    {
+      "width": 800,
+      "height": 145,
+      "title": {
+        "text": "Opponent line breaks / match",
+        "anchor": "start",
+        "fontSize": 13,
+        "color": "#173b32"
+      },
+      "data": {
+        "url": "Data/site/defence.json"
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "metric",
+            "equal": "Opponent line breaks / match"
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 65
+        },
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "title": null,
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": {
+            "title": null
+          },
+          "scale": {
+            "zero": true
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              "#17664d",
+              "#a1aaa4"
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "strokeDash": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              [
+                1,
+                0
+              ],
+              [
+                5,
+                4
+              ]
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "tooltip": [
+          {
+            "field": "series"
+          },
+          {
+            "field": "year"
+          },
+          {
+            "field": "metric"
+          },
+          {
+            "field": "value"
+          },
+          {
+            "field": "n"
+          }
+        ]
+      }
+    },
+    {
+      "width": 800,
+      "height": 145,
+      "title": {
+        "text": "Opponent run metres / match",
+        "anchor": "start",
+        "fontSize": 13,
+        "color": "#173b32"
+      },
+      "data": {
+        "url": "Data/site/defence.json"
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "metric",
+            "equal": "Opponent run metres / match"
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 65
+        },
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "title": null,
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": {
+            "title": null
+          },
+          "scale": {
+            "zero": true
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              "#17664d",
+              "#a1aaa4"
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "strokeDash": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              [
+                1,
+                0
+              ],
+              [
+                5,
+                4
+              ]
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "tooltip": [
+          {
+            "field": "series"
+          },
+          {
+            "field": "year"
+          },
+          {
+            "field": "metric"
+          },
+          {
+            "field": "value"
+          },
+          {
+            "field": "n"
+          }
+        ]
+      }
+    },
+    {
+      "width": 800,
+      "height": 145,
+      "title": {
+        "text": "Missed tackles / match",
+        "anchor": "start",
+        "fontSize": 13,
+        "color": "#173b32"
+      },
+      "data": {
+        "url": "Data/site/defence.json"
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "metric",
+            "equal": "Missed tackles / match"
+          }
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 65
+        },
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "axis": {
+            "title": null,
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "axis": {
+            "title": null
+          },
+          "scale": {
+            "zero": true
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              "#17664d",
+              "#a1aaa4"
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "strokeDash": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Canterbury",
+              "League average"
+            ],
+            "range": [
+              [
+                1,
+                0
+              ],
+              [
+                5,
+                4
+              ]
+            ]
+          },
+          "legend": {
+            "title": null
+          }
+        },
+        "tooltip": [
+          {
+            "field": "series"
+          },
+          {
+            "field": "year"
+          },
+          {
+            "field": "metric"
+          },
+          {
+            "field": "value"
+          },
+          {
+            "field": "n"
+          }
+        ]
+      }
+    }
+  ],
+  "spacing": 25
+}

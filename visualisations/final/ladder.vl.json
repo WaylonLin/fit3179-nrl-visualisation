@@ -1,0 +1,216 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 420,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "data": {
+    "url": "Data/site/ladder.json"
+  },
+  "encoding": {
+    "x": {
+      "field": "round",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          1,
+          28
+        ]
+      },
+      "axis": {
+        "title": "Round (2025)",
+        "values": [
+          1,
+          4,
+          8,
+          12,
+          16,
+          20,
+          23,
+          27
+        ],
+        "format": "d"
+      }
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          17,
+          1
+        ],
+        "zero": false
+      },
+      "axis": {
+        "title": "Ladder position",
+        "values": [
+          1,
+          4,
+          8,
+          12,
+          17
+        ],
+        "format": "d"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "stroke": "#a1aaa4",
+        "opacity": 0.32,
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "detail": {
+          "field": "team"
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "rank"
+          },
+          {
+            "field": "played"
+          },
+          {
+            "field": "wins"
+          },
+          {
+            "field": "bye"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.team === 'Penrith Panthers'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "color": "#17664d",
+        "strokeWidth": 3.5
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "rank"
+          },
+          {
+            "field": "played"
+          },
+          {
+            "field": "wins"
+          },
+          {
+            "field": "bye"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.team === 'Penrith Panthers'"
+        },
+        {
+          "filter": "datum.bye"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "fill": "#faf8f2",
+        "stroke": "#17664d",
+        "size": 100,
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "round"
+          },
+          {
+            "field": "rank"
+          },
+          {
+            "field": "played"
+          },
+          {
+            "field": "bye"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.team === 'Penrith Panthers'"
+        },
+        {
+          "filter": {
+            "field": "round",
+            "oneOf": [
+              12,
+              23,
+              27
+            ]
+          }
+        },
+        {
+          "calculate": "datum.rank+'th'",
+          "as": "label_rank"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -12,
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "#17664d"
+      },
+      "encoding": {
+        "text": {
+          "field": "label_rank"
+        }
+      }
+    }
+  ]
+}

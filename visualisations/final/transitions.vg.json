@@ -1,0 +1,168 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 900,
+  "height": 440,
+  "padding": 5,
+  "background": "#faf8f2",
+  "signals": [
+    {
+      "name": "left",
+      "value": 113
+    },
+    {
+      "name": "right",
+      "update": "width-113"
+    },
+    {
+      "name": "mid",
+      "update": "width/2"
+    }
+  ],
+  "data": [
+    {
+      "name": "links",
+      "url": "Data/site/transitions.json",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.matches > 0"
+        }
+      ]
+    },
+    {
+      "name": "nodes",
+      "url": "Data/site/transition_nodes.json"
+    }
+  ],
+  "scales": [
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": [
+        0,
+        212
+      ],
+      "range": [
+        30,
+        410
+      ],
+      "zero": true
+    },
+    {
+      "name": "colour",
+      "type": "ordinal",
+      "domain": [
+        "Lead held",
+        "Lead reversed",
+        "Level at half-time",
+        "Draw"
+      ],
+      "range": [
+        "#247b61",
+        "#d47b42",
+        "#7898ae",
+        "#8b599c"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "path",
+      "from": {
+        "data": "links"
+      },
+      "encode": {
+        "enter": {
+          "fill": {
+            "scale": "colour",
+            "field": "status"
+          },
+          "tooltip": {
+            "signal": "{transition: datum.source + ' → ' + datum.target, matches: datum.matches, 'Share of this half-time state': format(datum.matches/datum.source_n, '.1%')}"
+          }
+        },
+        "update": {
+          "fillOpacity": {
+            "value": 0.72
+          },
+          "path": {
+            "signal": "'M'+left+','+scale('y',datum.s0)+' C'+mid+','+scale('y',datum.s0)+' '+mid+','+scale('y',datum.t0)+' '+right+','+scale('y',datum.t0)+' L'+right+','+scale('y',datum.t1)+' C'+mid+','+scale('y',datum.t1)+' '+mid+','+scale('y',datum.s1)+' '+left+','+scale('y',datum.s1)+' Z'"
+          }
+        },
+        "hover": {
+          "fillOpacity": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.side === 'source' ? left-8 : right"
+          },
+          "width": {
+            "value": 8
+          },
+          "y": {
+            "scale": "y",
+            "field": "y0"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "y1"
+          },
+          "fill": {
+            "value": "#293f36"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "nodes"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.side === 'source' ? left-14 : right+14"
+          },
+          "y": {
+            "signal": "scale('y',(datum.y0+datum.y1)/2)"
+          },
+          "align": {
+            "signal": "datum.side === 'source' ? 'right' : 'left'"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "text": {
+            "signal": "datum.name+' · '+datum.n"
+          }
+        }
+      }
+    }
+  ],
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "legends": [
+    {
+      "fill": "colour",
+      "orient": "bottom",
+      "title": null,
+      "columns": 2,
+      "labelFontSize": 11
+    }
+  ]
+}

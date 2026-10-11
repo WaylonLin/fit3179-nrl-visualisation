@@ -1,0 +1,288 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 570,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "Data/site/scoring_summary.json"
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "low",
+          "type": "quantitative",
+          "title": "Points scored per match",
+          "scale": {
+            "domain": [
+              0,
+              80
+            ]
+          }
+        },
+        "x2": {
+          "field": "high"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "Dolphins",
+            "Brisbane",
+            "Melbourne",
+            "Canberra",
+            "Roosters",
+            "Cronulla",
+            "Penrith",
+            "Manly",
+            "North Queensland",
+            "Canterbury",
+            "Gold Coast",
+            "Warriors",
+            "Parramatta",
+            "St George Illawarra",
+            "Wests Tigers",
+            "South Sydney",
+            "Newcastle"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 145
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.team === 'Dolphins'",
+            "value": "#b65734"
+          },
+          "value": "#a1aaa4"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/scoring_summary.json"
+      },
+      "mark": {
+        "type": "bar",
+        "size": 14,
+        "opacity": 0.25
+      },
+      "encoding": {
+        "x": {
+          "field": "q1",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "q3"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "Dolphins",
+            "Brisbane",
+            "Melbourne",
+            "Canberra",
+            "Roosters",
+            "Cronulla",
+            "Penrith",
+            "Manly",
+            "North Queensland",
+            "Canterbury",
+            "Gold Coast",
+            "Warriors",
+            "Parramatta",
+            "St George Illawarra",
+            "Wests Tigers",
+            "South Sydney",
+            "Newcastle"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 145
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.team === 'Dolphins'",
+            "value": "#b65734"
+          },
+          "value": "#a1aaa4"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/scoring_summary.json"
+      },
+      "mark": {
+        "type": "tick",
+        "size": 19,
+        "thickness": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "median",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "Dolphins",
+            "Brisbane",
+            "Melbourne",
+            "Canberra",
+            "Roosters",
+            "Cronulla",
+            "Penrith",
+            "Manly",
+            "North Queensland",
+            "Canterbury",
+            "Gold Coast",
+            "Warriors",
+            "Parramatta",
+            "St George Illawarra",
+            "Wests Tigers",
+            "South Sydney",
+            "Newcastle"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 145
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.team === 'Dolphins'",
+            "value": "#b65734"
+          },
+          "value": "#a1aaa4"
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "median"
+          },
+          {
+            "field": "mean"
+          },
+          {
+            "field": "sd"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/scoring.json"
+      },
+      "mark": {
+        "type": "circle",
+        "size": 28,
+        "opacity": 0.65
+      },
+      "encoding": {
+        "x": {
+          "field": "points",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "Dolphins",
+            "Brisbane",
+            "Melbourne",
+            "Canberra",
+            "Roosters",
+            "Cronulla",
+            "Penrith",
+            "Manly",
+            "North Queensland",
+            "Canterbury",
+            "Gold Coast",
+            "Warriors",
+            "Parramatta",
+            "St George Illawarra",
+            "Wests Tigers",
+            "South Sydney",
+            "Newcastle"
+          ],
+          "axis": {
+            "title": null,
+            "labelLimit": 145
+          }
+        },
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.5,
+              0.5
+            ],
+            "range": [
+              -8,
+              8
+            ]
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.team === 'Dolphins'",
+            "value": "#b65734"
+          },
+          "value": "#a1aaa4"
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "points"
+          },
+          {
+            "field": "result"
+          }
+        ]
+      }
+    }
+  ]
+}

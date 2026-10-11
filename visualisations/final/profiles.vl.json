@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "height": 560,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom"
+    }
+  },
+  "data": {
+    "url": "Data/site/profiles.json"
+  },
+  "encoding": {
+    "x": {
+      "field": "metric",
+      "type": "nominal",
+      "sort": [
+        "Run metres",
+        "Post-contact metres",
+        "Line breaks",
+        "Breaks conceded",
+        "Run metres conceded"
+      ],
+      "axis": {
+        "title": null,
+        "orient": "top",
+        "labelAngle": 0,
+        "labelPadding": 21,
+        "labelLimit": 180,
+        "labelExpr": "datum.label === 'Post-contact metres' ? ['Post-contact','metres ↑'] : datum.label === 'Run metres conceded' ? ['Run metres','conceded ↓'] : datum.label === 'Breaks conceded' ? ['Breaks','conceded ↓'] : [datum.label,'↑']"
+      }
+    },
+    "y": {
+      "field": "label",
+      "type": "nominal",
+      "sort": "ascending",
+      "axis": {
+        "title": "2025 ladder position / team",
+        "labelLimit": 155
+      }
+    },
+    "tooltip": [
+      {
+        "field": "team"
+      },
+      {
+        "field": "metric"
+      },
+      {
+        "field": "value",
+        "title": "Per match",
+        "format": ".2f"
+      },
+      {
+        "field": "rank",
+        "title": "Metric rank"
+      },
+      {
+        "field": "direction",
+        "title": "Rank 1 means"
+      },
+      {
+        "field": "n",
+        "title": "Matches"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#faf8f2",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "rank",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              1,
+              17
+            ],
+            "range": [
+              "#17664d",
+              "#e9eee1"
+            ]
+          },
+          "legend": {
+            "title": "Rank within each metric (1 = most / fewest as marked)",
+            "values": [
+              1,
+              5,
+              9,
+              13,
+              17
+            ]
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {
+          "field": "rank"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.rank <= 6",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    }
+  ]
+}
