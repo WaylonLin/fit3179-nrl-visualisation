@@ -4,7 +4,7 @@ An editorial NRL data story by **Waylon Lin**, for FIT3179 Data Visualisation 2.
 
 Target repository: https://github.com/WaylonLin/fit3179-nrl-visualisation
 
-Expected Pages URL after activation: https://waylonlin.github.io/fit3179-nrl-visualisation/
+Pages URL: https://waylonlin.github.io/fit3179-nrl-visualisation/
 
 ## Run locally
 
