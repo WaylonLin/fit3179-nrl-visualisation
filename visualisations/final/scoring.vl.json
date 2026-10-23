@@ -73,7 +73,7 @@
             "Newcastle"
           ],
           "axis": {
-            "title": null,
+            "title": "Team",
             "labelLimit": 145
           }
         },
@@ -98,7 +98,8 @@
       "encoding": {
         "x": {
           "field": "q1",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": "Points scored per match"
         },
         "x2": {
           "field": "q3"
@@ -126,7 +127,7 @@
             "Newcastle"
           ],
           "axis": {
-            "title": null,
+            "title": "Team",
             "labelLimit": 145
           }
         },
@@ -151,7 +152,8 @@
       "encoding": {
         "x": {
           "field": "median",
-          "type": "quantitative"
+          "type": "quantitative",
+          "title": "Points scored per match"
         },
         "y": {
           "field": "label",
@@ -176,7 +178,7 @@
             "Newcastle"
           ],
           "axis": {
-            "title": null,
+            "title": "Team",
             "labelLimit": 145
           }
         },
@@ -208,9 +210,134 @@
         "url": "Data/site/scoring.json"
       },
       "mark": {
-        "type": "circle",
-        "size": 28,
-        "opacity": 0.65
+        "type": "point",
+        "size": 34,
+        "opacity": 0.78,
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "points",
+          "type": "quantitative",
+          "title": "Points scored per match"
+        },
+        "y": {
+          "field": "label",
+          "type": "nominal",
+          "sort": [
+            "Dolphins",
+            "Brisbane",
+            "Melbourne",
+            "Canberra",
+            "Roosters",
+            "Cronulla",
+            "Penrith",
+            "Manly",
+            "North Queensland",
+            "Canterbury",
+            "Gold Coast",
+            "Warriors",
+            "Parramatta",
+            "St George Illawarra",
+            "Wests Tigers",
+            "South Sydney",
+            "Newcastle"
+          ],
+          "axis": {
+            "title": "Team",
+            "labelLimit": 145
+          }
+        },
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.5,
+              0.5
+            ],
+            "range": [
+              -8,
+              8
+            ]
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.team === 'Dolphins'",
+            "value": "#b65734"
+          },
+          "value": "#9da99f"
+        },
+        "tooltip": [
+          {
+            "field": "team"
+          },
+          {
+            "field": "round"
+          },
+          {
+            "field": "opponent"
+          },
+          {
+            "field": "points"
+          },
+          {
+            "field": "result"
+          }
+        ],
+        "shape": {
+          "field": "result",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "W",
+              "L",
+              "D"
+            ],
+            "range": [
+              "circle",
+              "cross",
+              "diamond"
+            ]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "Data/site/scoring.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.team === 'Dolphins' && (datum.points === 62 || datum.points === 12)"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "n"
+            }
+          ],
+          "groupby": [
+            "team",
+            "label",
+            "points",
+            "result"
+          ]
+        },
+        {
+          "calculate": "datum.points === 12 ? '5 losses at 12' : '62 · win'",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -31,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#b65734"
       },
       "encoding": {
         "x": {
@@ -240,46 +367,22 @@
             "Newcastle"
           ],
           "axis": {
-            "title": null,
+            "title": "Team",
             "labelLimit": 145
           }
         },
-        "yOffset": {
-          "field": "jitter",
-          "type": "quantitative",
-          "scale": {
-            "domain": [
-              -0.5,
-              0.5
-            ],
-            "range": [
-              -8,
-              8
-            ]
-          }
-        },
-        "color": {
-          "condition": {
-            "test": "datum.team === 'Dolphins'",
-            "value": "#b65734"
-          },
-          "value": "#a1aaa4"
+        "text": {
+          "field": "note"
         },
         "tooltip": [
-          {
-            "field": "team"
-          },
-          {
-            "field": "round"
-          },
-          {
-            "field": "opponent"
-          },
           {
             "field": "points"
           },
           {
             "field": "result"
+          },
+          {
+            "field": "n"
           }
         ]
       }

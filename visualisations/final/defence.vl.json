@@ -28,7 +28,7 @@
   "vconcat": [
     {
       "width": 800,
-      "height": 145,
+      "height": 165,
       "title": {
         "text": "Opponent line breaks / match",
         "anchor": "start",
@@ -46,95 +46,238 @@
           }
         }
       ],
-      "mark": {
-        "type": "line",
-        "point": {
-          "filled": true,
-          "size": 65
-        },
-        "strokeWidth": 2.5
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal",
-          "axis": {
-            "title": null,
-            "labelAngle": 0
-          }
-        },
-        "y": {
-          "field": "value",
-          "type": "quantitative",
-          "axis": {
-            "title": null
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "point": {
+              "filled": true,
+              "size": 65
+            },
+            "strokeWidth": 2.5
           },
-          "scale": {
-            "zero": true
-          }
-        },
-        "color": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              "#17664d",
-              "#a1aaa4"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative",
+              "axis": {
+                "title": null
+              },
+              "scale": {
+                "zero": true
+              }
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "strokeDash": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    5,
+                    4
+                  ]
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "series"
+              },
+              {
+                "field": "year"
+              },
+              {
+                "field": "metric"
+              },
+              {
+                "field": "value"
+              },
+              {
+                "field": "n"
+              }
             ]
-          },
-          "legend": {
-            "title": null
           }
         },
-        "strokeDash": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              [
-                1,
-                0
-              ],
-              [
-                5,
-                4
-              ]
-            ]
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2023"
+            },
+            {
+              "calculate": "format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          "legend": {
-            "title": null
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
         },
-        "tooltip": [
-          {
-            "field": "series"
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2025"
+            },
+            {
+              "calculate": "datum.series + ' ' + format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          {
-            "field": "year"
-          },
-          {
-            "field": "metric"
-          },
-          {
-            "field": "value"
-          },
-          {
-            "field": "n"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "width": 800,
-      "height": 145,
+      "height": 165,
       "title": {
         "text": "Opponent run metres / match",
         "anchor": "start",
@@ -152,95 +295,238 @@
           }
         }
       ],
-      "mark": {
-        "type": "line",
-        "point": {
-          "filled": true,
-          "size": 65
-        },
-        "strokeWidth": 2.5
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal",
-          "axis": {
-            "title": null,
-            "labelAngle": 0
-          }
-        },
-        "y": {
-          "field": "value",
-          "type": "quantitative",
-          "axis": {
-            "title": null
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "point": {
+              "filled": true,
+              "size": 65
+            },
+            "strokeWidth": 2.5
           },
-          "scale": {
-            "zero": true
-          }
-        },
-        "color": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              "#17664d",
-              "#a1aaa4"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative",
+              "axis": {
+                "title": null
+              },
+              "scale": {
+                "zero": true
+              }
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "strokeDash": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    5,
+                    4
+                  ]
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "series"
+              },
+              {
+                "field": "year"
+              },
+              {
+                "field": "metric"
+              },
+              {
+                "field": "value"
+              },
+              {
+                "field": "n"
+              }
             ]
-          },
-          "legend": {
-            "title": null
           }
         },
-        "strokeDash": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              [
-                1,
-                0
-              ],
-              [
-                5,
-                4
-              ]
-            ]
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2023"
+            },
+            {
+              "calculate": "format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          "legend": {
-            "title": null
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
         },
-        "tooltip": [
-          {
-            "field": "series"
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2025"
+            },
+            {
+              "calculate": "datum.series + ' ' + format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          {
-            "field": "year"
-          },
-          {
-            "field": "metric"
-          },
-          {
-            "field": "value"
-          },
-          {
-            "field": "n"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
-        ]
-      }
+        }
+      ]
     },
     {
       "width": 800,
-      "height": 145,
+      "height": 165,
       "title": {
         "text": "Missed tackles / match",
         "anchor": "start",
@@ -258,91 +544,234 @@
           }
         }
       ],
-      "mark": {
-        "type": "line",
-        "point": {
-          "filled": true,
-          "size": 65
-        },
-        "strokeWidth": 2.5
-      },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "ordinal",
-          "axis": {
-            "title": null,
-            "labelAngle": 0
-          }
-        },
-        "y": {
-          "field": "value",
-          "type": "quantitative",
-          "axis": {
-            "title": null
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "point": {
+              "filled": true,
+              "size": 65
+            },
+            "strokeWidth": 2.5
           },
-          "scale": {
-            "zero": true
-          }
-        },
-        "color": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              "#17664d",
-              "#a1aaa4"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative",
+              "axis": {
+                "title": null
+              },
+              "scale": {
+                "zero": true
+              }
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "strokeDash": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    5,
+                    4
+                  ]
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "series"
+              },
+              {
+                "field": "year"
+              },
+              {
+                "field": "metric"
+              },
+              {
+                "field": "value"
+              },
+              {
+                "field": "n"
+              }
             ]
-          },
-          "legend": {
-            "title": null
           }
         },
-        "strokeDash": {
-          "field": "series",
-          "type": "nominal",
-          "scale": {
-            "domain": [
-              "Canterbury",
-              "League average"
-            ],
-            "range": [
-              [
-                1,
-                0
-              ],
-              [
-                5,
-                4
-              ]
-            ]
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2023"
+            },
+            {
+              "calculate": "format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          "legend": {
-            "title": null
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
         },
-        "tooltip": [
-          {
-            "field": "series"
+        {
+          "transform": [
+            {
+              "filter": "datum.year === 2025"
+            },
+            {
+              "calculate": "datum.series + ' ' + format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+              "as": "label"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 8,
+            "dy": {
+              "expr": "datum.year === 2025 && datum.metric !== 'Missed tackles / match' ? (datum.series === 'Canterbury' ? 14 : -12) : (datum.series === 'Canterbury' ? -12 : 14)"
+            },
+            "fontSize": 11
           },
-          {
-            "field": "year"
-          },
-          {
-            "field": "metric"
-          },
-          {
-            "field": "value"
-          },
-          {
-            "field": "n"
+          "encoding": {
+            "x": {
+              "field": "year",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  2022.85,
+                  2025.7
+                ],
+                "nice": false,
+                "zero": false
+              },
+              "axis": {
+                "title": null,
+                "values": [
+                  2023,
+                  2024,
+                  2025
+                ],
+                "format": "d"
+              }
+            },
+            "y": {
+              "field": "value",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "series",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Canterbury",
+                  "League average"
+                ],
+                "range": [
+                  "#17664d",
+                  "#a1aaa4"
+                ]
+              },
+              "legend": null
+            },
+            "text": {
+              "field": "label"
+            }
           }
-        ]
-      }
+        }
+      ]
     }
   ],
   "spacing": 25

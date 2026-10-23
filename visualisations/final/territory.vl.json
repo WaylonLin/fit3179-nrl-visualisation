@@ -109,7 +109,7 @@
       "mark": {
         "type": "circle",
         "size": 35,
-        "opacity": 0.5
+        "opacity": 0.72
       },
       "encoding": {
         "x": {
@@ -158,6 +158,39 @@
             "field": "margin"
           }
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": -1200,
+            "y": 12,
+            "label": "±12-point band"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dy": -4,
+        "color": "#b65734",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
       }
     }
   ]

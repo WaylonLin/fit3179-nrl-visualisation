@@ -59,8 +59,8 @@
       "type": "quantitative",
       "scale": {
         "domain": [
-          17,
-          1
+          18.4,
+          0
         ],
         "zero": false
       },
@@ -195,16 +195,21 @@
           }
         },
         {
-          "calculate": "datum.rank+'th'",
+          "calculate": "datum.round === 12 ? 'R12 · 17th' : datum.round === 23 ? 'R23 · 4th' : 'End · 7th'",
           "as": "label_rank"
         }
       ],
       "mark": {
         "type": "text",
-        "dy": -12,
-        "fontSize": 14,
+        "dy": {
+          "expr": "datum.round === 27 ? 18 : -16"
+        },
+        "fontSize": 12,
         "fontWeight": "bold",
-        "color": "#17664d"
+        "color": "#17664d",
+        "align": {
+          "expr": "datum.round === 27 ? 'right' : 'center'"
+        }
       },
       "encoding": {
         "text": {

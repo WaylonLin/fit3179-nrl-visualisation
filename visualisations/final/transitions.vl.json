@@ -1,0 +1,163 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom",
+      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleLimit": 250
+    }
+  },
+  "height": 320,
+  "data": {
+    "url": "Data/site/transitions.json"
+  },
+  "transform": [
+    {
+      "calculate": "datum.matches/datum.source_n",
+      "as": "share"
+    },
+    {
+      "calculate": "datum.matches + ' / ' + datum.source_n",
+      "as": "count_label"
+    },
+    {
+      "calculate": "format(datum.share,'.1%')",
+      "as": "percent"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "target",
+      "type": "nominal",
+      "sort": [
+        "Home win",
+        "Away win",
+        "Draw"
+      ],
+      "axis": {
+        "title": "Final result",
+        "orient": "top",
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "source",
+      "type": "nominal",
+      "sort": [
+        "Home ahead",
+        "Away ahead",
+        "Level"
+      ],
+      "axis": {
+        "title": "Half-time state",
+        "labelLimit": 120
+      }
+    },
+    "tooltip": [
+      {
+        "field": "source"
+      },
+      {
+        "field": "target"
+      },
+      {
+        "field": "matches"
+      },
+      {
+        "field": "source_n",
+        "title": "All games in this row"
+      },
+      {
+        "field": "share",
+        "format": ".1%",
+        "title": "Share of row"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#faf8f2",
+        "strokeWidth": 5
+      },
+      "encoding": {
+        "color": {
+          "field": "share",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              1
+            ],
+            "range": [
+              "#edf1e6",
+              "#17664d"
+            ]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "dy": -10
+      },
+      "encoding": {
+        "text": {
+          "field": "count_label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.share>.6",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "dy": 13
+      },
+      "encoding": {
+        "text": {
+          "field": "percent"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.share>.6",
+            "value": "white"
+          },
+          "value": "#173b32"
+        }
+      }
+    }
+  ]
+}

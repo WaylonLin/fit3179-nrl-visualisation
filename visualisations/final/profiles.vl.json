@@ -93,48 +93,80 @@
       },
       "encoding": {
         "color": {
-          "field": "rank",
+          "field": "shade",
           "type": "quantitative",
           "scale": {
             "domain": [
-              1,
-              17
+              0,
+              1
             ],
             "range": [
-              "#17664d",
-              "#e9eee1"
+              "#e9eee1",
+              "#17664d"
             ]
           },
-          "legend": {
-            "title": "Rank within each metric (1 = most / fewest as marked)",
-            "values": [
-              1,
-              5,
-              9,
-              13,
-              17
-            ]
-          }
+          "legend": null
         }
       }
     },
     {
       "mark": {
         "type": "text",
-        "fontSize": 12
+        "fontSize": 11
       },
       "encoding": {
         "text": {
-          "field": "rank"
+          "field": "display"
         },
         "color": {
           "condition": {
-            "test": "datum.rank <= 6",
+            "test": "datum.shade >= .65",
             "value": "white"
           },
           "value": "#173b32"
         }
       }
+    }
+  ],
+  "params": [
+    {
+      "name": "profileMode",
+      "value": "Rank",
+      "bind": {
+        "input": "select",
+        "name": "Show: ",
+        "options": [
+          "Rank",
+          "Actual values"
+        ]
+      }
+    }
+  ],
+  "transform": [
+    {
+      "joinaggregate": [
+        {
+          "op": "min",
+          "field": "value",
+          "as": "lo"
+        },
+        {
+          "op": "max",
+          "field": "value",
+          "as": "hi"
+        }
+      ],
+      "groupby": [
+        "metric"
+      ]
+    },
+    {
+      "calculate": "profileMode === 'Rank' ? (17-datum.rank)/16 : datum.hi === datum.lo ? 0.5 : datum.direction === 'Most' ? (datum.value-datum.lo)/(datum.hi-datum.lo) : (datum.hi-datum.value)/(datum.hi-datum.lo)",
+      "as": "shade"
+    },
+    {
+      "calculate": "profileMode === 'Rank' ? format(datum.rank,'.0f') : format(datum.value, indexof(datum.metric,'metres') >= 0 ? '.0f' : '.2f')",
+      "as": "display"
     }
   ]
 }

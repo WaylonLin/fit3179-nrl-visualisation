@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 880,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#faf8f2",
+  "config": {
+    "font": "Arial",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "gridColor": "#e3e5dc",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelColor": "#173b32",
+      "titleColor": "#173b32",
+      "orient": "bottom",
+      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "titleLimit": 250
+    }
+  },
+  "height": 360,
+  "data": {
+    "url": "Data/site/states.json"
+  },
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "sort": [
+        "New South Wales",
+        "Queensland",
+        "Victoria",
+        "Australian Capital Territory",
+        "Western Australia",
+        "Northern Territory",
+        "South Australia",
+        "Other Territories",
+        "Tasmania"
+      ],
+      "title": "State / territory",
+      "axis": {
+        "labelLimit": 180
+      }
+    },
+    "x": {
+      "field": "matches",
+      "type": "quantitative",
+      "title": "Fixtures hosted (including finals)",
+      "scale": {
+        "domain": [
+          0,
+          125
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state"
+      },
+      {
+        "field": "matches"
+      },
+      {
+        "field": "population"
+      },
+      {
+        "field": "rate"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#17664d"
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "color": "#173b32"
+      },
+      "encoding": {
+        "text": {
+          "field": "matches"
+        }
+      }
+    }
+  ]
+}
