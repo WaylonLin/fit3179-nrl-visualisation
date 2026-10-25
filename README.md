@@ -26,6 +26,6 @@ Every chart links to its readable JSON specification and compact data. Original 
 
 ## Publication status
 
-I used ChatGPT and Codex ([OpenAI](https://chatgpt.com/)) to help plan my NRL visualisation, analyse the available NRL and ABS datasets, and compare possible narrative structures and visualisation idioms. For example, when I asked AI to gather data, I specified that it needed to support a coherent data story.
+I used ChatGPT ([OpenAI](https://chatgpt.com/)) to help plan my NRL visualisation, analyse the available NRL and ABS datasets, and compare possible narrative structures and visualisation idioms. For example when I asked AI to gather data I specified that it needs to be able to “build a coherent data story”.
 
-I used Codex to generate and revise substantial portions of the website’s HTML, CSS, JavaScript and Vega/Vega-Lite specifications, together with data-preparation scripts. AI assistance also included debugging, checking derived values against source records, and inspecting responsive layouts.
+I used ChatGPT to write and revise substantial portions of the website’s HTML, CSS, JavaScript and Vega/Vega-Lite specifications, together with data-preparation and validation scripts. AI assistance also included debugging, checking derived values against source records, and inspecting responsive layouts.
